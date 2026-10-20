@@ -1,0 +1,2 @@
+// Name this query fact_subscription
+let Source = fnLoadCSV("fact_subscription.csv", {{"account_id", Int64.Type}, {"month", type date}, {"mrr", Currency.Type}, {"previous_mrr", Currency.Type}, {"new_mrr", Currency.Type}, {"reactivation_mrr", Currency.Type}, {"expansion_mrr", Currency.Type}, {"contraction_mrr", Currency.Type}, {"churn_mrr", Currency.Type}, {"retained_mrr", Currency.Type}, {"active", Int64.Type}, {"starting_active", Int64.Type}, {"churned", Int64.Type}}) in Source

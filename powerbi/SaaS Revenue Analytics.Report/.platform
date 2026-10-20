@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "SaaS Revenue Analytics"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "012ee720-9d8f-4ac1-8753-7c51e4b85cc3"
+  }
+}

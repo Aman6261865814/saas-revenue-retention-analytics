@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "SaaS Revenue Analytics"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "6d21f7da-d392-4ed7-80c7-a6f8e69c4ac1"
+  }
+}

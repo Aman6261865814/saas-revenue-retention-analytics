@@ -1,0 +1,9 @@
+{
+  "accounts": 2400,
+  "snapshots": 43200,
+  "duplicate_retries_removed": 200,
+  "ending_mrr_usd": 528130.3,
+  "latest_nrr": 0.9758659559072572,
+  "latest_logo_churn_rate": 0.018528049408131755,
+  "max_bridge_residual": 1.1641532182693481e-10
+}

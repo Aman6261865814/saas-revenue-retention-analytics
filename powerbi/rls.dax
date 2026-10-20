@@ -1,0 +1,5 @@
+// Apply this role filter to dim_account. Keep security disconnected.
+// Replace example identities with actual tenant UPNs before publishing.
+VAR AllowedRegions = SELECTCOLUMNS(FILTER(security, LOWER(security[upn]) = LOWER(USERPRINCIPALNAME())), "AllowedRegion", security[region])
+RETURN dim_account[region] IN AllowedRegions
+// Also filter security itself: LOWER(security[upn]) = LOWER(USERPRINCIPALNAME())

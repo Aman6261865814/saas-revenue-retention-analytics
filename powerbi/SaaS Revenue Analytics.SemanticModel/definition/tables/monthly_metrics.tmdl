@@ -1,0 +1,167 @@
+table monthly_metrics
+	lineageTag: a81d1317-e4c5-476c-b431-e8dfaf2d964a
+
+	column month
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 87470df6-b283-414c-8e76-20ed9c974cbd
+		summarizeBy: none
+		sourceColumn: month
+
+		variation Variation
+			isDefault
+			relationship: 1d29b396-a070-42df-8c06-4a2c62cd8a58
+			defaultHierarchy: LocalDateTable_c3cf441a-e147-44bb-9e71-e4068db8c57b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column start_mrr
+		dataType: double
+		lineageTag: b37cd448-7aab-487c-b539-6102b9631375
+		summarizeBy: sum
+		sourceColumn: start_mrr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column end_mrr
+		dataType: double
+		lineageTag: e8788154-4c14-4fba-85c5-44b4d05379f2
+		summarizeBy: sum
+		sourceColumn: end_mrr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column new_mrr
+		dataType: double
+		lineageTag: cceffc76-cc2c-4102-a8ab-424591af9ed5
+		summarizeBy: sum
+		sourceColumn: new_mrr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column reactivation_mrr
+		dataType: double
+		lineageTag: 85ec97cc-3e81-4416-a948-181ec7def7e5
+		summarizeBy: sum
+		sourceColumn: reactivation_mrr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column expansion_mrr
+		dataType: double
+		lineageTag: 4bfb2396-1be7-4339-b280-3c01a389a107
+		summarizeBy: sum
+		sourceColumn: expansion_mrr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column contraction_mrr
+		dataType: double
+		lineageTag: 5831262d-d5d7-4236-a32a-c3e4fab5b6de
+		summarizeBy: sum
+		sourceColumn: contraction_mrr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column churn_mrr
+		dataType: double
+		lineageTag: 48aeb92c-b109-4841-bdd7-fd4717362386
+		summarizeBy: sum
+		sourceColumn: churn_mrr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column retained_mrr
+		dataType: double
+		lineageTag: 18854b46-6c9e-4163-b35c-1f3c6b82f9fb
+		summarizeBy: sum
+		sourceColumn: retained_mrr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column active_accounts
+		dataType: int64
+		formatString: 0
+		lineageTag: 083890fb-038d-4aa2-96b5-dccb81b1b38a
+		summarizeBy: sum
+		sourceColumn: active_accounts
+
+		annotation SummarizationSetBy = Automatic
+
+	column starting_accounts
+		dataType: int64
+		formatString: 0
+		lineageTag: 345840dc-81d1-43f2-8a3f-36dd314cc371
+		summarizeBy: sum
+		sourceColumn: starting_accounts
+
+		annotation SummarizationSetBy = Automatic
+
+	column churned_accounts
+		dataType: int64
+		formatString: 0
+		lineageTag: d9a237c7-9c18-42c5-884c-b28858648b6b
+		summarizeBy: sum
+		sourceColumn: churned_accounts
+
+		annotation SummarizationSetBy = Automatic
+
+	column nrr
+		dataType: double
+		lineageTag: 6a21deb5-0363-452b-b60a-103b6596ad15
+		summarizeBy: sum
+		sourceColumn: nrr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column logo_churn_rate
+		dataType: double
+		lineageTag: 70fcba7f-577f-49dc-8ab2-16e144c3dc17
+		summarizeBy: sum
+		sourceColumn: logo_churn_rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column bridge_residual
+		dataType: double
+		lineageTag: 8a1db749-34bc-4f26-ba48-3a0b00e506de
+		summarizeBy: sum
+		sourceColumn: bridge_residual
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition monthly_metrics = m
+		mode: import
+		source =
+				let
+				  Source = Sql.Database("localhost", "SaaSRevenueAnalytics"),
+				  #"Navigation 1" = Source{[Schema = "dbo", Item = "monthly_metrics"]}[Data]
+				in
+				  #"Navigation 1"
+
+	annotation PBI_ResultType = Table
+

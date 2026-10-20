@@ -1,0 +1,82 @@
+table DimDate
+	lineageTag: c3166f5d-724c-4523-b63d-871bee9adc95
+	dataCategory: Time
+
+	measure 'Latest Month MRR' =
+			
+			VAR LatestMonth =
+			    CALCULATE(
+			        MAX(fact_subscription[month]),
+			        REMOVEFILTERS(DimDate)
+			    )
+			RETURN
+			    CALCULATE(
+			        [Total MRR],
+			        REMOVEFILTERS(DimDate),
+			        fact_subscription[month] = LatestMonth
+			    )
+		formatString: \$#,0.00
+		lineageTag: 0d0c0efc-d51f-44a7-9ef4-17be50475473
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Date
+		isKey
+		formatString: General Date
+		lineageTag: 3392ddbb-95c3-42e8-956f-966a52cae1a0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		formatString: 0
+		lineageTag: eabfc51e-c6e7-4878-9ad8-55d13a7e95a4
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Number'
+		formatString: 0
+		lineageTag: 35673b2f-7f6e-4569-bd8e-2626be418014
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Month Number]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Year'
+		lineageTag: ac770c4f-09f6-4754-ba56-3f130b88f358
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month Year]
+		sortByColumn: 'Year Month Sort'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year Month Sort'
+		formatString: 0
+		lineageTag: 67eaadbb-26bc-43ef-a08d-e3219562ef47
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year Month Sort]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimDate = calculated
+		mode: import
+		source =
+				
+				ADDCOLUMNS(
+				    CALENDAR(DATE(2025, 1, 1), DATE(2026, 12, 31)),
+				    "Year", YEAR([Date]),
+				    "Month Number", MONTH([Date]),
+				    "Month Year", FORMAT([Date], "MMM yyyy"),
+				    "Year Month Sort", YEAR([Date]) * 100 + MONTH([Date])
+				)
+
+	annotation PBI_Id = 26fccbf18241434bac915c554452bf0e
+

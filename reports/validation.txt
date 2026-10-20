@@ -1,0 +1,12 @@
+test_bridge (test_contracts.DataContractTests.test_bridge) ... ok
+test_conflicting_duplicates_rejected (test_contracts.DataContractTests.test_conflicting_duplicates_rejected) ... ok
+test_exact_retry_removed (test_contracts.DataContractTests.test_exact_retry_removed) ... ok
+test_nrr_excludes_acquisition (test_contracts.DataContractTests.test_nrr_excludes_acquisition) ... ok
+test_null_key_rejected (test_contracts.DataContractTests.test_null_key_rejected) ... ok
+test_relationships_and_grain (test_contracts.DataContractTests.test_relationships_and_grain) ... ok
+test_sql_python_parity (test_contracts.DataContractTests.test_sql_python_parity) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.121s
+
+OK

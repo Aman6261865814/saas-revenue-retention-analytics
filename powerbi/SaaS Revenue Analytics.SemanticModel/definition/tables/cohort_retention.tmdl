@@ -1,0 +1,72 @@
+table cohort_retention
+	lineageTag: e6929b5a-f98c-4eb9-9077-49bf78d8804c
+
+	measure 'Cohort Retention Rate' = IF(ISINSCOPE(cohort_retention[Signup Month]) && ISINSCOPE(cohort_retention[age_month]), SELECTEDVALUE(cohort_retention[retention]))
+		formatString: 0.0%
+		lineageTag: 95a96c55-5412-442b-bf92-6cc56ced5e9e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column signup_month
+		dataType: int64
+		formatString: 0
+		lineageTag: 542b6572-b0be-4320-8220-efaf363841fd
+		summarizeBy: sum
+		sourceColumn: signup_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column age_month
+		dataType: int64
+		formatString: 0
+		lineageTag: 6b0827d3-1cfe-47a2-9ff6-96ac53f12a96
+		summarizeBy: sum
+		sourceColumn: age_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column active
+		dataType: int64
+		formatString: 0
+		lineageTag: 074615c9-71cf-4211-9942-8871513fd245
+		summarizeBy: sum
+		sourceColumn: active
+
+		annotation SummarizationSetBy = Automatic
+
+	column cohort_size
+		dataType: int64
+		formatString: 0
+		lineageTag: 0b4c5974-af19-44f1-a6d1-f76811226511
+		summarizeBy: sum
+		sourceColumn: cohort_size
+
+		annotation SummarizationSetBy = Automatic
+
+	column retention
+		dataType: double
+		lineageTag: d22a29ab-fa13-4bd8-8d54-a382fd4b74ad
+		summarizeBy: sum
+		sourceColumn: retention
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Signup Month' = EDATE(DATE(2025, 1, 1), cohort_retention[signup_month])
+		dataType: dateTime
+		formatString: MMM yyyy
+		lineageTag: ffafaf91-2431-48a5-8e8e-1e69c08030ff
+		summarizeBy: none
+
+	partition cohort_retention = m
+		mode: import
+		source =
+				let
+				  Source = Sql.Database("localhost", "SaaSRevenueAnalytics"),
+				  #"Navigation 1" = Source{[Schema = "dbo", Item = "cohort_retention"]}[Data]
+				in
+				  #"Navigation 1"
+
+	annotation PBI_ResultType = Table
+

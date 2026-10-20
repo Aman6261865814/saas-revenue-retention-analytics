@@ -1,0 +1,15 @@
+name: Reproduce and validate
+on: [push, pull_request]
+jobs:
+  analytics:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - run: python src/pipeline.py
+      - run: python src/publish_report.py
+      - run: python src/ai_reporting.py
+      - run: python -m unittest discover -s tests -v

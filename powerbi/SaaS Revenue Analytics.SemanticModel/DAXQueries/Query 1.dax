@@ -1,0 +1,14 @@
+DEFINE
+ MEASURE fact_subscription[Latest Active Accounts] =
+ VAR LastMonth = CALCULATE(MAX(fact_subscription[month]), REMOVEFILTERS(DimDate))
+ RETURN CALCULATE(SUM(fact_subscription[active]), REMOVEFILTERS(DimDate), fact_subscription[month] = LastMonth)
+ MEASURE fact_subscription[Latest NRR] =
+ VAR LastMonth = CALCULATE(MAX(fact_subscription[month]), REMOVEFILTERS(DimDate))
+ RETURN CALCULATE(DIVIDE(SUM(fact_subscription[retained_mrr]), SUM(fact_subscription[previous_mrr])), REMOVEFILTERS(DimDate), fact_subscription[month] = LastMonth)
+ MEASURE fact_subscription[Latest Logo Churn] =
+ VAR LastMonth = CALCULATE(MAX(fact_subscription[month]), REMOVEFILTERS(DimDate))
+ RETURN CALCULATE(DIVIDE(SUM(fact_subscription[churned]), SUM(fact_subscription[starting_active])), REMOVEFILTERS(DimDate), fact_subscription[month] = LastMonth)
+ MEASURE fact_subscription[Latest ARPA] = DIVIDE([Latest Month MRR], [Latest Active Accounts])
+ MEASURE cohort_retention[Cohort Retention Rate] = SELECTEDVALUE(cohort_retention[retention])
+EVALUATE
+ ROW("MRR", [Latest Month MRR], "Active Accounts", [Latest Active Accounts], "NRR", [Latest NRR], "Logo Churn", [Latest Logo Churn], "ARPA", [Latest ARPA])

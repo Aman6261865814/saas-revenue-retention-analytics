@@ -1,0 +1,39 @@
+table dim_account
+	lineageTag: 18c95f20-fb72-4884-ab1d-96f8f3ca69b0
+
+	column account_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 32b339da-e9aa-4fbe-9b27-fd1fc5b364fa
+		summarizeBy: none
+		sourceColumn: account_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column region
+		dataType: string
+		lineageTag: c6913234-6e56-4eb8-b808-3737a868d1dd
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = Automatic
+
+	column segment
+		dataType: string
+		lineageTag: b500ec70-1f80-4240-ae60-19342f1756bb
+		summarizeBy: none
+		sourceColumn: segment
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_account = m
+		mode: import
+		source =
+				let
+				  Source = Sql.Database("localhost", "SaaSRevenueAnalytics"),
+				  #"Navigation 1" = Source{[Schema = "dbo", Item = "dim_account"]}[Data]
+				in
+				  #"Navigation 1"
+
+	annotation PBI_ResultType = Table
+

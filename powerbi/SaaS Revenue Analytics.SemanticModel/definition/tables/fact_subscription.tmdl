@@ -1,0 +1,208 @@
+table fact_subscription
+	lineageTag: 280b8afd-0d40-4fa8-91cf-0db1b8bbeed6
+
+	measure 'Total MRR' = SUM(fact_subscription[mrr])
+		formatString: \$#,0.00
+		lineageTag: 9d4de1fd-25c0-4320-8c6d-1618528d8611
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Latest Active Accounts' = ```
+			
+			 VAR LastMonth = CALCULATE(MAX(fact_subscription[month]), REMOVEFILTERS(DimDate))
+			 RETURN CALCULATE(SUM(fact_subscription[active]), REMOVEFILTERS(DimDate), fact_subscription[month] = LastMonth)
+			```
+		formatString: #,0
+		lineageTag: d73207d7-74e5-4aea-95aa-4f998df58115
+
+	measure 'Latest NRR' = ```
+			
+			 VAR LastMonth = CALCULATE(MAX(fact_subscription[month]), REMOVEFILTERS(DimDate))
+			 RETURN CALCULATE(DIVIDE(SUM(fact_subscription[retained_mrr]), SUM(fact_subscription[previous_mrr])), REMOVEFILTERS(DimDate), fact_subscription[month] = LastMonth)
+			```
+		formatString: 0.00%
+		lineageTag: efce87f9-8eb8-432c-b2e5-c7193feebb72
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Latest Logo Churn' = ```
+			
+			 VAR LastMonth = CALCULATE(MAX(fact_subscription[month]), REMOVEFILTERS(DimDate))
+			 RETURN CALCULATE(DIVIDE(SUM(fact_subscription[churned]), SUM(fact_subscription[starting_active])), REMOVEFILTERS(DimDate), fact_subscription[month] = LastMonth)
+			```
+		formatString: 0.00%
+		lineageTag: 07a09843-cb85-4ad1-924b-3fcbba908598
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Latest ARPA' = DIVIDE([Latest Month MRR], [Latest Active Accounts])
+		formatString: \$#,0.00
+		lineageTag: 9e14ef82-c6a8-45b6-a546-d69f976c4bcd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column account_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 00ccb555-fcb2-4c1c-b3cf-bc95a16c1ddd
+		summarizeBy: none
+		sourceColumn: account_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 6d6929e7-6dfa-4675-a08b-15aeef76b0cd
+		summarizeBy: none
+		sourceColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column previous_mrr
+		dataType: double
+		lineageTag: 6397268e-1e2d-4338-87e0-c625c48e26b1
+		summarizeBy: sum
+		sourceColumn: previous_mrr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column mrr
+		dataType: double
+		lineageTag: 4242b9cd-7b99-41f0-854c-85f248756a78
+		summarizeBy: sum
+		sourceColumn: mrr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column movement
+		dataType: string
+		lineageTag: 4106cab8-bc66-4cb1-bf8e-3b23e0f8b56b
+		summarizeBy: none
+		sourceColumn: movement
+
+		annotation SummarizationSetBy = Automatic
+
+	column delta
+		dataType: double
+		lineageTag: 74247082-8307-4e38-b504-3bab7842d163
+		summarizeBy: sum
+		sourceColumn: delta
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column new_mrr
+		dataType: double
+		lineageTag: 97267021-c3bc-4175-a5a9-cc4b4b28c436
+		summarizeBy: sum
+		sourceColumn: new_mrr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column reactivation_mrr
+		dataType: double
+		lineageTag: 93a65984-abb5-45df-bf11-f905b394cf5c
+		summarizeBy: sum
+		sourceColumn: reactivation_mrr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column expansion_mrr
+		dataType: double
+		lineageTag: 5dab6e37-a858-4bbc-bcac-9a251a1c0b95
+		summarizeBy: sum
+		sourceColumn: expansion_mrr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column contraction_mrr
+		dataType: double
+		lineageTag: 5dea2154-ccdd-49a4-9412-39f91f1b6d3a
+		summarizeBy: sum
+		sourceColumn: contraction_mrr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column churn_mrr
+		dataType: double
+		lineageTag: 6eb733ae-b16c-475e-a924-9d36ec73057e
+		summarizeBy: sum
+		sourceColumn: churn_mrr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column active
+		dataType: int64
+		formatString: 0
+		lineageTag: 8539c802-0e17-42eb-86bf-d84367042dc6
+		summarizeBy: sum
+		sourceColumn: active
+
+		annotation SummarizationSetBy = Automatic
+
+	column starting_active
+		dataType: int64
+		formatString: 0
+		lineageTag: c95a20d5-096e-47f0-862b-5aee9ec817f1
+		summarizeBy: sum
+		sourceColumn: starting_active
+
+		annotation SummarizationSetBy = Automatic
+
+	column churned
+		dataType: int64
+		formatString: 0
+		lineageTag: d8b489c0-4675-4a5f-bb59-1b82f4dd9537
+		summarizeBy: sum
+		sourceColumn: churned
+
+		annotation SummarizationSetBy = Automatic
+
+	column retained_mrr
+		dataType: double
+		lineageTag: 443fdbdd-690e-4f99-bfea-c82d4b65e1e9
+		summarizeBy: sum
+		sourceColumn: retained_mrr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column age_month
+		dataType: int64
+		formatString: 0
+		lineageTag: 32b3446e-bb1f-4972-a32a-943cd50365aa
+		summarizeBy: sum
+		sourceColumn: age_month
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_subscription = m
+		mode: import
+		source =
+				let
+				  Source = Sql.Database("localhost", "SaaSRevenueAnalytics"),
+				  #"Navigation 1" = Source{[Schema = "dbo", Item = "fact_subscription"]}[Data]
+				in
+				  #"Navigation 1"
+
+	annotation PBI_ResultType = Table
+

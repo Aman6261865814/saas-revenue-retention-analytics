@@ -1,0 +1,25 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-IN
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["cohort_retention","dim_account","fact_subscription","monthly_metrics"]
+
+annotation PBI_ProTooling = ["DaxQueryView_Desktop","DevMode"]
+
+ref table cohort_retention
+ref table dim_account
+ref table fact_subscription
+ref table DateTableTemplate_ca05389b-2d28-4525-8410-2ac892a10938
+ref table monthly_metrics
+ref table LocalDateTable_c3cf441a-e147-44bb-9e71-e4068db8c57b
+ref table DimDate
+
+ref cultureInfo en-US
+

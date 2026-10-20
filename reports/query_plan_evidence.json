@@ -1,0 +1,30 @@
+{
+  "engine": "SQLite",
+  "repetitions": 30,
+  "warm_cache": true,
+  "before": {
+    "median_ms": 3.1731499766465276,
+    "plan": [
+      [
+        3,
+        0,
+        216,
+        "SCAN fact_subscription"
+      ]
+    ],
+    "matching_rows": 2400
+  },
+  "after": {
+    "median_ms": 0.11130000348202884,
+    "plan": [
+      [
+        3,
+        0,
+        151,
+        "SEARCH fact_subscription USING COVERING INDEX ix_fact_subscription_date (month>? AND month<?)"
+      ]
+    ],
+    "matching_rows": 2400
+  },
+  "limitation": "Small local synthetic data. No production speedup claim."
+}

@@ -1,0 +1,13 @@
+relationship 1d29b396-a070-42df-8c06-4a2c62cd8a58
+	joinOnDateBehavior: datePartOnly
+	fromColumn: monthly_metrics.month
+	toColumn: LocalDateTable_c3cf441a-e147-44bb-9e71-e4068db8c57b.Date
+
+relationship AutoDetected_94e16063-4a47-41d7-bfaa-53f9929128b0
+	fromColumn: fact_subscription.account_id
+	toColumn: dim_account.account_id
+
+relationship c000f424-a528-84ad-37cf-e8afa08932e1
+	fromColumn: fact_subscription.month
+	toColumn: DimDate.Date
+

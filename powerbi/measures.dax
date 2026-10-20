@@ -1,0 +1,12 @@
+// Create each measure separately. DAX definitions are supplied, not Desktop-validated.
+Ending MRR = SUM(fact_subscription[mrr])
+Starting MRR = SUM(fact_subscription[previous_mrr])
+New MRR = SUM(fact_subscription[new_mrr])
+Expansion MRR = SUM(fact_subscription[expansion_mrr])
+Churn MRR = SUM(fact_subscription[churn_mrr])
+Contraction MRR = SUM(fact_subscription[contraction_mrr])
+Reactivation MRR = SUM(fact_subscription[reactivation_mrr])
+NRR = DIVIDE(SUM(fact_subscription[retained_mrr]), [Starting MRR])
+Logo Churn Rate = DIVIDE(SUM(fact_subscription[churned]), SUM(fact_subscription[starting_active]))
+Bridge Residual = [Ending MRR] - [Starting MRR] - [New MRR] - [Expansion MRR] - [Churn MRR] - [Contraction MRR] - [Reactivation MRR]
+Latest MRR = CALCULATE([Ending MRR], LASTDATE(dim_date[Date]))
