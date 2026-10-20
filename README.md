@@ -4,6 +4,8 @@
 
 ## Start here
 
+[Open the live interactive report](https://www.amankumarmishra.com/projects/saas-revenue/index.html)
+
 Read [the executive brief](reports/executive_brief.md), open [the interactive report](reports/dashboard.html) in a browser, and inspect [tests](tests/test_contracts.py). Charts in reports/ can be used in your GitHub README or portfolio with the synthetic-data label intact.
 
 ## Reproduce (Windows / Python 3.12)
@@ -15,7 +17,6 @@ python -m pip install -r requirements.txt
 python src/pipeline.py
 python -m unittest discover -s tests -v
 python src/ai_reporting.py
-python src/publish_report.py
 python src/publish_report.py
 ```
 
